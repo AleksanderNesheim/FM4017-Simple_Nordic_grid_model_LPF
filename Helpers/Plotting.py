@@ -183,15 +183,29 @@ def plot_network_simple(n):
 
     return
 
-def plot_network_bus_names(n):
+def plot_network_bus_names(n, zones_path="bidding_zones.geojson"):
+    # Load bidding zones
+    zones = gpd.read_file(zones_path)
+
+    # Make sure CRS is correct
+    if zones.crs is None:
+        zones = zones.set_crs("EPSG:4326")
+    else:
+        zones = zones.to_crs("EPSG:4326")
+
     fig = plt.subplots(figsize=(12, 12), subplot_kw={"projection": ccrs.PlateCarree()})[1]
-    # Plot network
+
+    # 1) Plot bidding zone boundaries
+    zones.plot(ax=fig, edgecolor="black", facecolor="none", linewidth=1)
+
+    # 2) Plot PyPSA network
     n.plot(
         ax=fig,
         bus_sizes=0.01,
         line_widths=0.3,
     )
-    # Add bus labels manually
+
+    # 3) Plot bus labels
     for bus_name, row in n.buses.iterrows():
         fig.text(
             row.x, row.y,
@@ -199,6 +213,9 @@ def plot_network_bus_names(n):
             fontsize=6,
             transform=ccrs.PlateCarree()
         )
+
+    # 4) Optional: title
+    fig.set_title("Network with Bus Names and Bidding Zone Boundaries")
 
     plt.show()
     return
