@@ -109,6 +109,55 @@ Zonal net positions are therefore considered a more robust validation metric.
 
 ---
 
+## Results summary
+
+The simplified Nordic network model was validated against reported ENTSO-E cross-border power flows using linear power flow (LPF).
+
+To avoid distortion from very small denominators, cross-border flows with absolute values below 10 MW were excluded from all error metrics.
+
+Validation metrics
+
+The following quantitative performance metrics were obtained:
+
+Low-load scenario
+
+Weighted Absolute Percentage Error (WAPE): approximately 49 %
+
+Directional accuracy between bidding zones: 79 %
+
+High-load scenario
+
+Weighted Absolute Percentage Error (WAPE): approximately 22 %
+
+Directional accuracy between bidding zones: 93 %
+
+Directional accuracy measures whether the model correctly predicts the net direction of power exchange between bidding zones, independent of magnitude.
+
+Interpretation of results
+
+The validation results indicate that:
+
+Model accuracy improves substantially under high-load conditions
+
+Flow directions are captured more reliably than absolute magnitudes
+
+Large percentage deviations are mainly associated with low absolute flows, where small MW errors translate into large relative errors
+
+The higher directional accuracy and lower WAPE observed in the high-load scenario suggest that the simplified LPF model captures the dominant transmission patterns of the Nordic system reasonably well when the network is more heavily loaded.
+
+Limitations of the validation
+
+The following limitations should be noted:
+
+LPF neglects reactive power, voltage constraints, and loop flows
+
+Cross-border percentage errors are sensitive to parallel path effects inherent in AC networks
+
+Zonal net positions provide a more robust validation metric than individual border flows
+
+Overall, the validation results are consistent with expectations for a reduced-order, DC-based transmission model. The model is therefore suitable for methodological studies and high-level system analysis, but not for detailed operational or security assessments.
+
+---
 ## Citation
 
 If this repository or parts of the model are reused, please cite as:
